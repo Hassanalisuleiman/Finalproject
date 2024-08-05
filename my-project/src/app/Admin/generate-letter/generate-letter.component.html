@@ -1,0 +1,24 @@
+<!-- src/app/components/generate-letter/generate-letter.component.html -->
+<div class="container">
+    <h2>Generate Letter</h2>
+    <form [formGroup]="letterForm" (ngSubmit)="onSubmit()">
+      <label>Citizen ID</label>
+      <input formControlName="citizen_id" type="text" required>
+      <label>Addressee</label>
+      <select formControlName="addressee_id" required>
+        <option *ngFor="let addressee of addressees" [value]="addressee.id">{{ addressee.name }}</option>
+      </select>
+      <label>Template</label>
+      <select formControlName="template_id" required>
+        <option *ngFor="let template of templates" [value]="template.id">{{ template.template_name }}</option>
+      </select>
+      <label>Title</label>
+      <input formControlName="title" type="text" required>
+      <label>Photo</label>
+      <input formControlName="photo" type="file" accept="image/*">
+      <label>User ID</label>
+      <input formControlName="user_id" type="text" required>
+      <button type="submit" [disabled]="letterForm.invalid">Generate</button>
+    </form>
+  </div>
+  
