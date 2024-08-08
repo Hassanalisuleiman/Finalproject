@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
+const Shehia = require('../models/shehia');
 
 const User = db.define('User', {
   user_id: {
@@ -53,9 +54,18 @@ const User = db.define('User', {
       },
     },
   },
+  shehia_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Shehia,
+      key: 'shehia_id',
+    }
+  },
   role: {
     type: DataTypes.ENUM('admin', 'sheha', 'citizen'),
     allowNull: false,
+    defaultValue: 'citizen',  // Set 'citizen' as the default role
     validate: {
       notEmpty: {
         msg: 'Role is required',
@@ -67,5 +77,7 @@ const User = db.define('User', {
   createdAt: 'created_date',
   updatedAt: 'updated_date',
 });
+
+User.belongsTo(Shehia, { foreignKey: 'shehia_id' });
 
 module.exports = User;

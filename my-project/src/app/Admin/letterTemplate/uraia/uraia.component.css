@@ -1,0 +1,14 @@
+body {
+    padding: 20px;
+  }
+  .letter-header img {
+    max-width: 100px;
+  }
+  .letter-body {
+    margin-top: 20px;
+  }
+  .letter-footer {
+    margin-top: 40px;
+    text-align: center;
+  }
+  

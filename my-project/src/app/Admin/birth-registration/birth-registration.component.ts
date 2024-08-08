@@ -19,7 +19,8 @@ export class BirthRegistrationComponent implements OnInit {
       child_name: [''],
       date_of_birth: [''],
       merit_status: [''],
-      citizen_id: ['']
+      user_id:['']
+      // citizen_id: [''],
       
     });
   }

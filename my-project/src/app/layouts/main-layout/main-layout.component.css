@@ -6,12 +6,29 @@
   width: 200px;
 }
 
-/* .sidenav .mat-toolbar {
-  background: inherit;
-} */
+.logo-container {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.system-name {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

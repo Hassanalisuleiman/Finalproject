@@ -1,24 +1,123 @@
-<!-- src/app/components/generate-letter/generate-letter.component.html -->
-<div class="container">
+<div class="container mt-5">
     <h2>Generate Letter</h2>
-    <form [formGroup]="letterForm" (ngSubmit)="onSubmit()">
-      <label>Citizen ID</label>
-      <input formControlName="citizen_id" type="text" required>
-      <label>Addressee</label>
-      <select formControlName="addressee_id" required>
-        <option *ngFor="let addressee of addressees" [value]="addressee.id">{{ addressee.name }}</option>
+    <div class="form-group">
+      <label for="letterType">Select Letter Type:</label>
+      <select class="form-control" id="letterType" [(ngModel)]="selectedLetterType">
+        <option *ngFor="let letter of letterTemplates" [ngValue]="letter">{{letter.name}}</option>
       </select>
-      <label>Template</label>
-      <select formControlName="template_id" required>
-        <option *ngFor="let template of templates" [value]="template.id">{{ template.template_name }}</option>
-      </select>
-      <label>Title</label>
-      <input formControlName="title" type="text" required>
-      <label>Photo</label>
-      <input formControlName="photo" type="file" accept="image/*">
-      <label>User ID</label>
-      <input formControlName="user_id" type="text" required>
-      <button type="submit" [disabled]="letterForm.invalid">Generate</button>
-    </form>
+    </div>
+  
+    <div class="form-group">
+      <label for="organizationName">Organization Name:</label>
+      <input type="text" class="form-control" id="organizationName" [(ngModel)]="organizationName" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="poBox">P.O. Box:</label>
+      <input type="text" class="form-control" id="poBox" [(ngModel)]="poBox" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" class="form-control" id="country" [(ngModel)]="country">
+    </div>
+  
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" id="date" [(ngModel)]="date">
+    </div>
+  
+    <button class="btn btn-primary" (click)="onPrint()">Print</button>
+  
+    <!-- Include different letter templates -->
+    <div id="passport-request-letter" style="display:none;">
+      <div class="container">
+        <div class="letter-header text-center">
+          <img src="assets/image/logo.jfif" alt="Logo" style="width: 100px;">
+          <h3>SERIKALI YA MAPINDUZI YA ZANZIBAR</h3>
+          <p>OFISI YA RAIS, TAWALA ZA MIKOA, SERIKALI ZA MITAA NA IDARA MAALUM ZA SMZ</p>
+          <p>OFISI YA SHEHA SHEHIA YA CHUKWANI WILAYA YA MAGHARIBI B</p>
+          <p>Sanduku la Posta 4744</p>
+          <p>Zanzibar - Tanzania</p>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-6">
+            <p>Simu: Wakati wa kujibu Onesha</p>
+            <p>OR/WMGH 'B'</p>
+          </div>
+          <div class="col-md-6 text-right">
+            <p><strong>{{date}}</strong></p>
+          </div>
+        </div>
+  
+        <div class="letter-body">
+          <p><strong>KAMISHNA WA UHAMIAJI,</strong></p>
+          <p>S.L.P 1354,</p>
+          <p>{{country}}</p>
+  
+          <h4 class="text-center"><strong>Kuhusu: KUPATIWA PASSPORT</strong></h4>
+  
+          <p><strong>NDUGU</strong> ..................................................................</p>
+  
+          <p>Naomba uruhusiwe na mada ya hapo juu kama inavyojieleza:</p>
+          <p>Ndugu nilomtaja hapo anatakeya katika shehia yangu. Ndugu huyo ata fika huko kusafiri kwenda nje ya nchi kwa shughuli zake binafsi.</p>
+          <p>Hivyo kwa barua hii nashauri afanyiwe utaratibu wa kisheria unaofaa ambao utamuwezesha kufanikisha ombi lake hilo la kupatiwa passport hiyo.</p>
+  
+          <p><strong>Ahsante</strong></p>
+        </div>
+  
+        <div class="letter-footer text-center">
+          <p><strong>Sheha Wa Shehia</strong></p>
+          <p><strong>Ya Chukwani</strong></p>
+          <p><strong>Suleiman Mohamed Mwinyi</strong></p>
+        </div>
+      </div>
+    </div>
+  
+    <div id="visa-application-letter" style="display:none;">
+      <div class="container">
+        <div class="letter-header text-center">
+          <img src="assets/image/logo.jfif" alt="Logo" style="width: 100px;">
+          <h3>SERIKALI YA MAPINDUZI YA ZANZIBAR</h3>
+          <p>OFISI YA RAIS, TAWALA ZA MIKOA, SERIKALI ZA MITAA NA IDARA MAALUM ZA SMZ</p>
+          <p>OFISI YA SHEHA SHEHIA YA CHUKWANI WILAYA YA MAGHARIBI B</p>
+          <p>Sanduku la Posta 4744</p>
+          <p>Zanzibar - Tanzania</p>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-6">
+            <p>Simu: Wakati wa kujibu Onesha</p>
+            <p>OR/WMGH 'B'</p>
+          </div>
+          <div class="col-md-6 text-right">
+            <p><strong>{{date}}</strong></p>
+          </div>
+        </div>
+  
+        <div class="letter-body">
+          <p><strong>KAMISHNA WA UHAMIAJI,</strong></p>
+          <p>S.L.P 1354,</p>
+          <p>{{country}}</p>
+  
+          <h4 class="text-center"><strong>Kuhusu: MAOMBI YA VISA</strong></h4>
+  
+          <p><strong>NDUGU</strong> ..................................................................</p>
+  
+          <p>Naomba uruhusiwe na mada ya hapo juu kama inavyojieleza:</p>
+          <p>Ndugu nilomtaja hapo anatakeya katika shehia yangu. Ndugu huyo ata fika huko kusafiri kwenda nje ya nchi kwa shughuli zake binafsi.</p>
+          <p>Hivyo kwa barua hii nashauri afanyiwe utaratibu wa kisheria unaofaa ambao utamuwezesha kufanikisha ombi lake hilo la kupatiwa visa hiyo.</p>
+  
+          <p><strong>Ahsante</strong></p>
+        </div>
+  
+        <div class="letter-footer text-center">
+          <p><strong>Sheha Wa Shehia</strong></p>
+          <p><strong>Ya Chukwani</strong></p>
+          <p><strong>Suleiman Mohamed Mwinyi</strong></p>
+        </div>
+      </div>
+    </div>
   </div>
   

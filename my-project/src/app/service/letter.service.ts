@@ -1,22 +1,25 @@
-// src/app/services/letter.service.ts
+// letter.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LetterService {
-  private apiUrl = 'http://localhost:5000/api/letters';
+  constructor() {}
 
-  constructor(private http: HttpClient) { }
-
-  generateLetter(letter: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/generate`, letter);
+  getLetterTemplates() {
+    return [
+      { id: 1, name: 'Passport Request Letter', template: 'passport-request-letter' },
+      { id: 2, name: 'Visa Application Letter', template: 'visa-application-letter' },
+      // Add more letter types as needed
+    ];
   }
 
-  getLetters(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getDefaultCountry() {
+    return 'Tanzania';
+  }
+
+  getDefaultDate() {
+    return new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   }
 }
-

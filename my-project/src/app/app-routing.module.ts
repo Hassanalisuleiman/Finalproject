@@ -14,12 +14,13 @@ import { DesasterComponent } from './Admin/desaster/desaster.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserhomeComponent } from './User/userhome/userhome.component';
 import { EditHomeComponent } from './home/edit-home/edit-home.component';
-import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter.component';
 import { LetterTemplateComponent } from './Admin/letter-template/letter-template.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandRecordsComponent } from './Admin/land-records/land-records.component';
 import { HomeLandComponent } from './Admin/home-land/home-land.component';
+import { UraiaComponent } from './Admin/letterTemplate/uraia/uraia.component';
+import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter.component';
 
 
 
@@ -44,15 +45,20 @@ const routes: Routes = [
       {path:'desastershome',component:DesastersHomeComponent},
       {path:'desasters',component:DesasterComponent},
       {path:'edit_home/:id',component:EditHomeComponent},
-      {path:'generateLetter',component:GenerateLetterComponent},
       {path:'LetterTemplate',component:LetterTemplateComponent},
+      {path:'generate',component:GenerateLetterComponent},
       {path:'homeLand',component:HomeLandComponent},
-      {path:'landrecord',component:LandRecordsComponent}
+      {path:'landrecord',component:LandRecordsComponent},
+      
 
     ]
     // citzen dashbord start hire
 
   },
+  // barua
+  {path:'uraia',component:UraiaComponent},
+
+  // citizen
   {path:'citizen-dashboard',component:UserDashboardComponent,children:
     [{path:'userhome',component:UserhomeComponent},
 

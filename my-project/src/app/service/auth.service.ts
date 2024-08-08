@@ -10,8 +10,11 @@ export class AuthService {
   private apiUrl = 'http://localhost:5000/api/auth';
   private tokenKey = 'auth_token';
   private userRoleSubject = new BehaviorSubject<string | null>(null);
+  private userNameSubject = new BehaviorSubject<{ firstName: string | null, lastName: string | null }>({ firstName: null, lastName: null });
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.loadToken();  // Initialize user data if token exists on service load
+  }
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password })
@@ -24,28 +27,46 @@ export class AuthService {
   }
 
   private decodeToken(token: string): void {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    this.userRoleSubject.next(payload.user.role);
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.userRoleSubject.next(payload.user.role);
+      this.userNameSubject.next({ firstName: payload.user.first_name, lastName: payload.user.last_name });
+    } catch (e) {
+      console.error('Error decoding token', e);
+      this.logout();
+    }
   }
-  
+
   register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+    return this.http.post<any>(`${this.apiUrl}/register`, user);
   }
 
   getRole(): Observable<string | null> {
     return this.userRoleSubject.asObservable();
   }
 
+  getUserName(): Observable<{ firstName: string | null, lastName: string | null }> {
+    return this.userNameSubject.asObservable();
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.userRoleSubject.next(null);
+    this.userNameSubject.next({ firstName: null, lastName: null });
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+    return !!this.getToken();
   }
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  private loadToken(): void {
+    const token = this.getToken();
+    if (token) {
+      this.decodeToken(token);
+    }
   }
 }

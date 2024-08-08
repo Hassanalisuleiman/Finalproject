@@ -19,6 +19,7 @@ const ConflictRecord = require('./models/ConflictRecord');
 const Addressee = require('./models/Addressee');
 const LetterTemplate = require('./models/LetterTemplate');
 const letter = require('./models/Letter');
+const Shehia = require('./models/shehia');
 
 // initialize your routers hire
 const birthRecordsRoutes = require('./routes/BirthRecord');
@@ -34,6 +35,8 @@ const LetterTemplateRoutes = require('./routes/letterTemplatesRoutes');
 const LettersRouters = require('./routes/lettersRoutes');
 const letterRoutes = require('./routes/generateLettersRoutes');
 const Authroutes = require('./Auth/Auth.Routes');
+const ShehiaRoutes = require('./routes/shehiaRouters');
+
 
 
 const app = express();
@@ -56,6 +59,8 @@ app.use('/api',conflictRecordRoutes);
 app.use('/api',addresseesRoutes);
 app.use('/api',LetterTemplateRoutes);
 app.use('/api',LettersRouters);
+app.use('/api',ShehiaRoutes);
+
 app.use('/api/letters', letterRoutes);
 app.use('/api/auth', Authroutes);
 

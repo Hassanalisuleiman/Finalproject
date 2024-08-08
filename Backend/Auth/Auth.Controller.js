@@ -5,10 +5,13 @@ require('dotenv').config();
 
 // Register a new admin or citizen
 exports.register = async (req, res) => {
-  const { username, password, first_name, last_name, status, role } = req.body;
+  const { username, password, first_name, last_name, shehia_id, status, role } = req.body;
 
-  // Allow only 'admin' and 'citizen' roles for this route
-  if (role !== 'admin' && role !== 'citizen') {
+  // Set role to 'citizen' if it's empty or undefined
+  const userRole = role ? role : 'citizen';
+
+  // Allow only 'admin', 'sheha', and 'citizen' roles
+  if (userRole !== 'admin' && userRole !== 'sheha' && userRole !== 'citizen') {
     return res.status(400).json({ message: 'Invalid role' });
   }
 
@@ -26,8 +29,9 @@ exports.register = async (req, res) => {
       password: hashedPassword,
       first_name,
       last_name,
+      shehia_id,
       status,
-      role,
+      role: userRole,
     });
 
     res.json({ message: 'User registered successfully' });
@@ -39,7 +43,7 @@ exports.register = async (req, res) => {
 
 // Register a new sheha (only by admin)
 exports.registerSheha = async (req, res) => {
-  const { username, password, first_name, last_name, status } = req.body;
+  const { username, password, first_name, last_name, shehia_id, status } = req.body;
   const role = 'sheha';
 
   // Verify if the requester is an admin
@@ -61,6 +65,7 @@ exports.registerSheha = async (req, res) => {
       password: hashedPassword,
       first_name,
       last_name,
+      shehia_id,
       status,
       role,
     });

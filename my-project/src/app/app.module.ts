@@ -35,11 +35,11 @@ import { UserhomeComponent } from './User/userhome/userhome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditHomeComponent } from './home/edit-home/edit-home.component';
 import { LetterTemplateComponent } from './Admin/letter-template/letter-template.component';
-import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
 
 // interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -47,6 +47,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LandRecordsComponent } from './Admin/land-records/land-records.component';
 import { HomeLandComponent } from './Admin/home-land/home-land.component';
 import { UraiaComponent } from './Admin/letterTemplate/uraia/uraia.component';
+import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter.component';
 
 
 
@@ -70,12 +71,12 @@ import { UraiaComponent } from './Admin/letterTemplate/uraia/uraia.component';
     UserhomeComponent,
     EditHomeComponent,
     LetterTemplateComponent,
-    GenerateLetterComponent,
     RegisterComponent,
     LoginComponent,
     LandRecordsComponent,
     HomeLandComponent,
     UraiaComponent,
+    GenerateLetterComponent,
     
   ],
   imports: [
@@ -98,6 +99,7 @@ import { UraiaComponent } from './Admin/letterTemplate/uraia/uraia.component';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatMenuModule,
    
     
   ],

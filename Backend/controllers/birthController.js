@@ -11,7 +11,7 @@ const createBirthRecord = async (req, res) => {
       child_name,
       date_of_birth,
       merit_status,
-      citizen_id
+      user_id
     } = req.body;
     const birthRecord = await BirthRecord.create({
       father_name,
@@ -19,7 +19,7 @@ const createBirthRecord = async (req, res) => {
       child_name,
       date_of_birth,
       merit_status,
-      citizen_id
+      user_id
     });
     res.status(201).json(birthRecord);
   } catch (error) {
@@ -61,7 +61,7 @@ const updateBirthRecord = async (req, res) => {
       child_name,
       date_of_birth,
       merit_status,
-      citizen_id
+      user_id
     } = req.body;
     const birthRecord = await BirthRecord.findByPk(id);
     if (!birthRecord) {
@@ -73,7 +73,7 @@ const updateBirthRecord = async (req, res) => {
       child_name,
       date_of_birth,
       merit_status,
-      citizen_id
+      user_id
     });
     res.status(200).json(birthRecord);
   } catch (error) {

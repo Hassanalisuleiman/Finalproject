@@ -11,7 +11,8 @@ const createUser = async (req, res) => {
       first_name,
       last_name,
       status,
-      role,
+      shehia_id,
+      role ="citizen",
       citizen_id,
     } = req.body;
     const user = await User.create({
@@ -20,6 +21,7 @@ const createUser = async (req, res) => {
       first_name,
       last_name,
       status,
+      shehia_id,
       role,
       citizen_id,
     });
@@ -64,6 +66,7 @@ const updateUser = async (req, res) => {
       last_name,
       status,
       role,
+      shehia_id,
       citizen_id,
     } = req.body;
     const user = await User.findByPk(id);
@@ -76,6 +79,7 @@ const updateUser = async (req, res) => {
       first_name,
       last_name,
       status,
+      shehia_id,
       role,
       citizen_id,
     });
