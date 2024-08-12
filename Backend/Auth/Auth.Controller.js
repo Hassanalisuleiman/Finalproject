@@ -52,9 +52,15 @@ exports.registerSheha = async (req, res) => {
   }
 
   try {
+    // Check if the user already exists
     let user = await User.findOne({ where: { username } });
     if (user) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'Username already exists' });
+    }
+
+    // Optional: Check for password strength (e.g., minimum length)
+    if (password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -90,11 +96,14 @@ exports.login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
+    
+    delete user.password;
 
     const payload = {
       user: {
         id: user.user_id,
         role: user.role,
+        shehia_id: shehia_id
       },
     };
 
@@ -104,7 +113,7 @@ exports.login = async (req, res) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ token: token, user });
       }
     );
   } catch (err) {
@@ -120,7 +129,8 @@ exports.logout = (req, res) => {
 
 // Middleware for verifying token and setting req.user
 exports.authMiddleware = (req, res, next) => {
-  const token = req.header('x-auth-token');
+  const authData = req.headers['authorization'];
+  const token = authData.split(' ')[1]; 
   if (!token) {
     return res.status(401).json({ message: 'No token, authorization denied' });
   }
@@ -128,6 +138,8 @@ exports.authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
+    req.shehiaId = decoded.shehia_id;
+    console.log(req.shehiaId);
     next();
   } catch (err) {
     res.status(401).json({ message: 'Token is not valid' });

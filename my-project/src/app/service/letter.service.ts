@@ -1,10 +1,12 @@
-// letter.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LetterService {
+  getLetterDetails() {
+    throw new Error('Method not implemented.');
+  }
   constructor() {}
 
   getLetterTemplates() {
@@ -22,4 +24,5 @@ export class LetterService {
   getDefaultDate() {
     return new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   }
+
 }

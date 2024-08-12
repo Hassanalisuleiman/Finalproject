@@ -12,7 +12,7 @@ const Letter = db.define('letters', {
     autoIncrement: true,
     primaryKey: true,
   },
-  citizen_id: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -20,14 +20,14 @@ const Letter = db.define('letters', {
       key: 'citizen_id'
     }
   },
-  addressee_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Addressee,
-      key: 'addressee_id'
-    }
-  },
+  // addressee_id: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  //   references: {
+  //     model: Addressee,
+  //     key: 'addressee_id'
+  //   }
+  // },
   title: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -54,6 +54,30 @@ const User = db.define('User', {
       },
     },
   },
+  street: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  house_no: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  gender: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  phone_no: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  zan_id: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  tz_id: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   shehia_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -79,5 +103,6 @@ const User = db.define('User', {
 });
 
 User.belongsTo(Shehia, { foreignKey: 'shehia_id' });
+Shehia.hasMany(User, { foreignKey: 'shehia_id' });
 
 module.exports = User;

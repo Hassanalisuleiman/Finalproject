@@ -36,6 +36,7 @@ const LettersRouters = require('./routes/lettersRoutes');
 const letterRoutes = require('./routes/generateLettersRoutes');
 const Authroutes = require('./Auth/Auth.Routes');
 const ShehiaRoutes = require('./routes/shehiaRouters');
+const printedLetter = require('./routes/printedletterRoutes');
 
 
 
@@ -60,6 +61,7 @@ app.use('/api',addresseesRoutes);
 app.use('/api',LetterTemplateRoutes);
 app.use('/api',LettersRouters);
 app.use('/api',ShehiaRoutes);
+app.use('/api',printedLetter);
 
 app.use('/api/letters', letterRoutes);
 app.use('/api/auth', Authroutes);

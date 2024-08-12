@@ -7,26 +7,31 @@ import { BirthService } from '../../service/birth.service';
   styleUrl: './birth-home.component.css'
 })
 export class BirthHomeComponent implements OnInit {
-  displayedColumns: string[] = ['id','father_name','mother_name','child_name','date_of_birth','merit_status'];
-  birthRecords:any
+  displayedColumns: string[] = ['id', 'father_name', 'mother_name', 'child_name', 'date_of_birth', 'merit_status', 'actions'];
+  birthRecords: any;
 
-  constructor(private birthservice: BirthService){}
+  constructor(private birthService: BirthService) {}
 
   ngOnInit(): void {
-   this.getAllBirth();
+    this.getAllBirth();
   }
 
-  getAllBirth(){
-    this.birthservice.getAll().subscribe((response:any)=>{
+  getAllBirth() {
+    this.birthService.getAll().subscribe((response: any) => {
       this.birthRecords = response;
       console.table(response);
-      
-    })
-  }
-  deleteBirth(id: number): void {
-    this.birthRecords.deleteById(id).subscribe(() => {
-      this.getAllBirth(); // Refresh the list
     });
   }
 
+  deleteBirth(id: number): void {
+    this.birthService.deleteById(id).subscribe(() => {
+      this.getAllBirth(); // Refresh the list after deletion
+    });
+  }
+
+  updateBirth(id: number, updatedRecord: any): void {
+    this.birthService.putById(id, updatedRecord).subscribe(() => {
+      this.getAllBirth(); // Refresh the list after update
+    });
+  }
 }

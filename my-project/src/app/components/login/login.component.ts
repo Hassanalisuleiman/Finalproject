@@ -38,20 +38,27 @@ export class LoginComponent {
 
       if (loginResponse) {
         this.success = true;
-        this.authService.getRole().subscribe(role => {
-          this.snackBar.open('Successfully logged in!', 'Close', {
-            duration: 3000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right',
-            panelClass: ['snack-bar-success'] // Apply success styles
-          });
 
-          if (role === 'admin') {
-            this.router.navigate(['/admin-dashboard']);
-          } else if (role === 'sheha') {
-            this.router.navigate(['/sheha-dashboard']);
-          } else if (role === 'citizen') {
-            this.router.navigate(['/citizen-dashboard']);
+        // Store the entire user object in local storage
+        localStorage.setItem('user', JSON.stringify(loginResponse.user));
+        
+        // Store the token in local storage
+        localStorage.setItem('token', loginResponse.token);
+
+        this.authService.getRole().subscribe(role => {
+          if (role) {
+            // Store the user role in local storage
+            localStorage.setItem('role', role);
+
+            this.snackBar.open('Successfully logged in!', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+              panelClass: ['snack-bar-success'] // Apply success styles
+            });
+
+            // Navigate to the dashboard
+            this.router.navigate(['/dashboard']);
           }
         });
       } else {

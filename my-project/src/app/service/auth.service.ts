@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'http://localhost:5000/api';
   private tokenKey = 'auth_token';
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   private userNameSubject = new BehaviorSubject<{ firstName: string | null, lastName: string | null }>({ firstName: null, lastName: null });
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.loadToken();  // Initialize user data if token exists on service load
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { username, password })
-      .pipe(
-        tap(response => {
-          localStorage.setItem(this.tokenKey, response.token);
-          this.decodeToken(response.token);
-        })
-      );
+    return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
+      tap(response => {
+        localStorage.setItem(this.tokenKey, response.token);
+        this.decodeToken(response.token);
+      }),
+      catchError(err => {
+        console.error('Login error', err);
+        return of(null);
+      })
+    );
   }
 
   private decodeToken(token: string): void {

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config/auth');
+// const { JWT_SECRET } = require('../config/auth');
 
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization'];
@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
     return res.status(403).json({ message: 'No token provided' });
   }
 
-  jwt.verify(token, jwtSecret, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(500).json({ message: 'Failed to authenticate token' });
     }

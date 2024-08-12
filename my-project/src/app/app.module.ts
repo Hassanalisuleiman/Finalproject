@@ -48,6 +48,9 @@ import { LandRecordsComponent } from './Admin/land-records/land-records.componen
 import { HomeLandComponent } from './Admin/home-land/home-land.component';
 import { UraiaComponent } from './Admin/letterTemplate/uraia/uraia.component';
 import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter.component';
+import { AdminPageComponent } from './Admin/admin-page/admin-page.component';
+import { RegisterShehaComponent } from './components/register-sheha/register-sheha.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 
@@ -77,6 +80,9 @@ import { GenerateLetterComponent } from './Admin/generate-letter/generate-letter
     HomeLandComponent,
     UraiaComponent,
     GenerateLetterComponent,
+    AdminPageComponent,
+    RegisterShehaComponent,
+    WelcomeComponent,
     
   ],
   imports: [

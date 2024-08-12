@@ -1,40 +1,37 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ShehiaService } from '../../service/shehia.service';
+ // Import the Shehia service
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-register-sheha',
+  templateUrl: './register-sheha.component.html',
+  styleUrls: ['./register-sheha.component.css']
 })
-export class RegisterComponent {
+export class RegisterShehaComponent implements OnInit {
   user = {
     username: '',
     password: '',
     first_name: '',
     last_name: '',
     status: '',
-    street: '',
-    house_no: '',
-    gender: '',
-    phone_no: '',
-    zan_id: '',
-    tz_id: '',
-    shehia_id: null,
-    role: 'citizen' // default role
+    role: 'citizen', // default role
+    shehia_id: null // Foreign key to store the selected shehia_id
   };
 
   isLoading = false;
   message: string | null = null;
   isSuccess = false;
-  shehias: any[] = [];
+  shehias: any[] = []; // Array to store shehias
 
   constructor(private authService: AuthService, private router: Router, private shehiaService: ShehiaService) { }
+
   ngOnInit(): void {
     this.loadShehias(); // Load shehias on component initialization
   }
+
   loadShehias(): void {
     this.shehiaService.getAllShehias().subscribe(
       data => {

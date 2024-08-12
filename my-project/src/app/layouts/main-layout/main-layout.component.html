@@ -5,11 +5,14 @@
                [opened]="(isHandset$ | async) === false">
     <div class="logo-container">
       <img src="assets/image/logo.jfif" alt="Logo" class="logo">
-      <span class="system-name">My System Name</span>
+      <span class="system-name">Shehia System</span>
     </div>
     <mat-nav-list>
-      <a mat-list-item routerLink="admin-dashboard">Home</a>
-      <mat-expansion-panel>
+      <!-- Admin and Sheha Links -->
+      <a *ngIf="role === 'admin' || role === 'sheha'" mat-list-item routerLink="admin-dashboard">Home</a>
+
+      <!-- Admin Only Links -->
+      <mat-expansion-panel *ngIf="role === 'admin'">
         <mat-expansion-panel-header>
           <mat-panel-title>Letters</mat-panel-title>
         </mat-expansion-panel-header>
@@ -19,14 +22,17 @@
           <a mat-list-item routerLink="">Letter 3</a>
         </mat-list>
       </mat-expansion-panel>
-      <a mat-list-item routerLink="register">Add user</a>
-      <a mat-list-item routerLink="homeAddressee">Addressee</a>
-      <a mat-list-item routerLink="birthhome">Birth Registration</a>
-      <a mat-list-item routerLink="homedeath">Deaths</a>
-      <a mat-list-item routerLink="desastershome">Disasters</a>
-      <a mat-list-item routerLink="LetterTemplate">Letter Template</a>
-      <a mat-list-item routerLink="generate">Generate Letter</a>
-      <a mat-list-item routerLink="homeLand">Land record</a>
+
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="registersheha">Add Sheha</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="homeAddressee">Addressee</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="birthhome">Birth Registration</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="homedeath">Deaths</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="desastershome">Disasters</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="LetterTemplate">Letter Template</a>
+      <a *ngIf="role === 'admin'" mat-list-item routerLink="homeLand">Land record</a>
+
+      <!-- Sheha and Citizen Links -->
+      <a *ngIf="role === 'sheha' || role === 'citizen'" mat-list-item routerLink="generate">Generate Letter</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -40,6 +46,7 @@
       </button>
       <span>Dashboard</span>
       <span class="spacer"></span>
+      <span>Welcome {{ userName }}!</span> <!-- Bind the userName property here -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
       </button>
